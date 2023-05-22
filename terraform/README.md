@@ -20,7 +20,7 @@ AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY
 ```
 - Create an S3 Bucket to host your and also your `.env` variables.
-- Upload your env file to the s3 bucket
+- Upload your .env file to the s3 bucket
 
 #### Two Approches
 
@@ -46,4 +46,6 @@ env:
 - Check Terraform Plan Outputs
 - Merge. On Merging, changes are deployed to the environments.
 
-For each CI/CD pipeline, an image is built and tagged with the git commit SHA.
+For each CI/CD pipeline, an image is built and tagged with the git commit SHA. This image is deployed as a new version of your ECS Fargate task, implementing your changes immediately.
+
+PS: Due to the nature of the sentinel node, there is bound to be downtime when a new node is being provisioned.
