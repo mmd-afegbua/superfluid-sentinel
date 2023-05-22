@@ -86,7 +86,7 @@ jobs:
     name: Terraform Apply
     runs-on: ubuntu-latest
     environment: sandbox
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     needs: terraform-plan
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
