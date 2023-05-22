@@ -5,11 +5,13 @@
 The terraform code is made up of:
 - Networking (1 VPC, Two Public and Two Private Subnets, NAT Gateway and Routes )
 - IAM Roles and Policies
+- Cloudwatch log group and alerts
+- EFS File
 - ECS Cluster
 - ECS Task and Service (Fargate)
 
 ### How to Deploy
-- Depending on the registry you use, you have to populate the following secrets in Github
+- Depending on the registry you use, you have to populate the following secrets in Github Actions
 ```
 CR_ACCESS_TOKEN
 CR_USERNAME

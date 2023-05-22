@@ -142,13 +142,13 @@ module "ecs_service" {
 
   subnet_ids = module.vpc.public_subnets
   security_group_rules = {
-    alb_http_ingress = {
+    http_ingress = {
       type                     = "ingress"
       from_port                = local.container_port
       to_port                  = local.container_port
       protocol                 = "tcp"
       description              = "Service custom port"
-      source_security_group_id = module.alb_sg.security_group_id
+      source_security_group_id = module.sentinel_sg.security_group_id
     },
     egress_all = {
       type        = "egress"
@@ -197,6 +197,24 @@ resource "aws_iam_policy" "policy" {
     ]
   })
 }
+
+module "sentinel_sg" {
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "~> 4.0"
+
+  name        = "${local.name}-service"
+  description = "Service security group"
+  vpc_id      = module.vpc.vpc_id
+
+  #   ingress_rules       = ["http-80-tcp"]
+  #   ingress_cidr_blocks = ["0.0.0.0/0"]
+
+  egress_rules       = ["all-all"]
+  egress_cidr_blocks = module.vpc.private_subnets_cidr_blocks
+
+  tags = local.tags
+}
+
 
 resource "aws_service_discovery_http_namespace" "this" {
   name        = local.name
